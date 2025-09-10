@@ -3,7 +3,7 @@ import { Link } from "react-router-dom";
 
 const Footer = () => {
   return (
-    <div className="flex justify-between w-full min-h-35 bg-sky-800 rounded-t-[80px] p-4 text-white">
+    <div className="flex justify-between w-full min-h-35 bg-sky-800 rounded-t-[80px] p-4 text-white mt-20">
       <div className="flex justify-start items-end pl-[2%]">
         <Snowflake size={"75px"} />
         <div className="flex h-full justify-start pt-[5%]">
@@ -16,6 +16,12 @@ const Footer = () => {
           <strong>Nysdev</strong>
           <br />
           <div className="flex gap-4 justify-center font-semibold">
+            <Link
+              to="/terms"
+              className="text-sky-300   hover:text-sky-500 duration-300"
+            >
+              <span>Terms & Conditions</span>
+            </Link>
             <Link
               to="/privacy"
               className="text-sky-300   hover:text-sky-500 duration-300"
