@@ -1,0 +1,66 @@
+import React, { useEffect, useState } from "react";
+import useAuthStore from "../stores/authStore";
+import { authService } from "../services/authService";
+import axios from "axios";
+// import { useLocation } from "react-router-dom";
+import LoadingSpinner from "@/components/LoadingSpinner";
+import { userService } from "./userService";
+import { toast } from "react-toastify";
+
+interface ValidationErrorResponse {
+  errors: {
+    [key: string]: { msg: string };
+  };
+}
+
+export const AuthProvider: React.FC<{ children: React.ReactNode }> = ({
+  children,
+}) => {
+  // const location = useLocation();
+  const { setAuth, clearAuth } = useAuthStore();
+  const [loading, setLoading] = useState(true);
+
+  const refreshAccessToken = async () => {
+    try {
+      const res = await authService.refreshToken(); // ส่ง cookie ไป
+      if (res.data?.accessToken) {
+        const accessToken = res.data.accessToken;
+        setAuth(null, accessToken);
+
+        const profile = await userService.getCurrentUser();
+        const { username, email, role } = profile.data;
+        const userData = { username, email, role };
+        setAuth(userData, accessToken);
+
+      } else {
+        clearAuth();
+      }
+    } catch (err: unknown) {
+      clearAuth();
+      console.log(err);
+
+      if (axios.isAxiosError(err) && err.response) {
+        const data = err.response.data as ValidationErrorResponse;
+        const formatted: Record<string, string> = {};
+        Object.entries(data.errors).forEach(([field, detail]) => {
+          formatted[field] = detail.msg;
+        });
+
+        toast.error(Object.values(formatted).join(", "));
+      } else {
+        toast.error("Something went wrong");
+      }
+    } finally {
+      setLoading(false);
+    }
+  };
+
+  useEffect(() => {
+    refreshAccessToken();
+    // refresh only once on initial mount; avoid triggering on route changes
+  }, []);
+
+  if (loading) return <LoadingSpinner />;
+
+  return <>{children}</>;
+};

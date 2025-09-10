@@ -1,6 +1,7 @@
 // components/ErrorBoundary.tsx
-import { Component } from 'react';
-import type { ErrorInfo, ReactNode } from 'react';
+import { Component } from "react";
+import type { ErrorInfo, ReactNode } from "react";
+import Topic from "./Topic";
 
 interface Props {
   children: ReactNode;
@@ -23,7 +24,7 @@ class ErrorBoundary extends Component<Props, State> {
   }
 
   componentDidCatch(error: Error, errorInfo: ErrorInfo) {
-    console.error('ErrorBoundary caught an error:', error, errorInfo);
+    console.error("ErrorBoundary caught an error:", error, errorInfo);
   }
 
   render() {
@@ -33,32 +34,34 @@ class ErrorBoundary extends Component<Props, State> {
       }
 
       return (
-        <div className="min-h-screen flex items-center justify-center bg-gray-100">
-          <div className="max-w-md w-full bg-white shadow-lg rounded-lg p-6">
+        <div className="min-h-screen flex items-center justify-center bg-sky-100">
+          <div className="max-w-md w-full bg-white shadow-lg rounded-[50px] p-10">
             <div className="flex items-center mb-4">
-              <div className="text-red-500 text-2xl mr-3">⚠️</div>
-              <h2 className="text-xl font-semibold text-gray-900">Something went wrong</h2>
+              <Topic topic="Something went wrong" desc="" />
             </div>
-            <p className="text-gray-600 mb-4">
-              We're sorry, but something unexpected happened. Please try refreshing the page.
+            <p className="text-gray-500 mb-4">
+              We're sorry, but something unexpected happened. Please try
+              refreshing the page.
             </p>
             <div className="flex gap-2">
               <button
                 onClick={() => window.location.reload()}
-                className="px-4 py-2 bg-blue-600 text-white rounded hover:bg-blue-700 transition"
+                className="px-6 py-3 bg-sky-600 text-white rounded-full hover:bg-sky-700 transition"
               >
                 Refresh Page
               </button>
               <button
                 onClick={() => this.setState({ hasError: false })}
-                className="px-4 py-2 border border-gray-300 rounded hover:bg-gray-100 transition"
+                className="px-6 py-3 border border-gray-300 rounded-full hover:bg-gray-100 transition"
               >
                 Try Again
               </button>
             </div>
-            {process.env.NODE_ENV === 'development' && this.state.error && (
-              <details className="mt-4 p-3 bg-gray-100 rounded text-sm">
-                <summary className="cursor-pointer font-medium">Error Details (Development)</summary>
+            {process.env.NODE_ENV === "development" && this.state.error && (
+              <details className="mt-4 p-3 bg-gray-100 rounded-xl text-sm">
+                <summary className="cursor-pointer font-medium">
+                  Error Details (Development)
+                </summary>
                 <pre className="mt-2 text-xs overflow-auto">
                   {this.state.error.stack}
                 </pre>

@@ -5,7 +5,7 @@ import Footer from "@/components/Footer";
 import NavBar from "@/components/NavBar";
 import ScrollToTop from "@/components/ScrollToTop";
 import { Outlet } from "react-router-dom";
- import { ToastContainer } from 'react-toastify';
+import { Slide, ToastContainer } from "react-toastify";
 
 const Layout = () => {
   return (
@@ -21,7 +21,19 @@ const Layout = () => {
       <main className="max-w-6xl mx-auto w-full px-4">
         <Outlet />
       </main>
-      <ToastContainer />
+      <ToastContainer
+        position="top-right"
+        autoClose={3000}
+        hideProgressBar
+        newestOnTop={false}
+        closeOnClick
+        rtl={false}
+        pauseOnFocusLoss
+        draggable
+        pauseOnHover
+        theme="colored"
+        transition={Slide}
+      />
       <Footer />
       <CookieConsentBanner />
       <CookieSettingsButton />

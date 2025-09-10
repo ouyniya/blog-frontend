@@ -11,11 +11,17 @@ import { createBrowserRouter, RouterProvider } from "react-router-dom";
 import ProtectedRoute from "./ProtectedRoute";
 import NotFound from "@/pages/NotFound";
 import ErrorBoundary from "@/components/ErrorBoundary";
+import { AuthProvider } from "@/services/AuthProvider";
+import CreateBlog from "@/pages/CreateBlog";
 
 const router = createBrowserRouter([
   {
     path: "/",
-    element: <Layout />,
+    element: (
+      <AuthProvider>
+        <Layout />
+      </AuthProvider>
+    ),
     children: [
       { index: true, element: <Home /> },
       { path: "/blog", element: <Blog /> },
@@ -29,13 +35,21 @@ const router = createBrowserRouter([
   {
     path: "/",
     element: (
-      <ProtectedRoute>
+      <AuthProvider>
         <Layout />
-      </ProtectedRoute>
+      </AuthProvider>
     ),
     children: [
-      { index: true, element: <Profile /> },
-      { path: "/profile", element: <Profile /> },
+      { path: "/profile", element: (
+        <ProtectedRoute>
+          <Profile />
+        </ProtectedRoute>
+      ) },
+      { path: "/create-blog", element: (
+        <ProtectedRoute>
+          <CreateBlog />
+        </ProtectedRoute>
+      ) },
     ],
   },
   {
