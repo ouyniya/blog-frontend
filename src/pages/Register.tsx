@@ -10,15 +10,80 @@ import {
 } from "@/components/ui/card";
 import { Input } from "@/components/ui/input";
 import { Label } from "@/components/ui/label";
-import { Link } from "react-router-dom";
+import { Link, useNavigate } from "react-router-dom";
 import { useState } from "react";
 import { Eye, EyeOff } from "lucide-react";
+import { authService } from "@/services/authService";
+import { toast } from "react-toastify";
+import axios from "axios";
+
+interface ValidationErrorResponse {
+  errors: {
+    [key: string]: { msg: string };
+  };
+}
 
 const Register = () => {
   const [showPassword, setShowPassword] = useState(false);
 
+  const [isChecked, setIsChecked] = useState(false);
+  const [email, setEmail] = useState("");
+  const [password, setPassword] = useState("");
+
+  const [loading, setLoading] = useState(false);
+  const navigate = useNavigate(); // Initialize useNavigate
+
+  const hdlRegister = async (e: React.MouseEvent<HTMLButtonElement>) => {
+    e.preventDefault();
+
+    // validate data
+    if (!email.trim() || !password.trim()) {
+      toast.error("Please fill in all inputs");
+      return;
+    }
+
+    if (!isChecked) {
+      toast.error(
+        "Please read our Terms & Conditions and Privacy Policy. Check the box if you agree, then you can continue."
+      );
+      return;
+    }
+
+    // send to backend
+    try {
+      setLoading(true);
+
+      const response = await authService.register(email, password);
+      console.log(response);
+
+      toast.success("Register Success");
+      setTimeout(() => navigate("/login"), 2000);
+    } catch (err: unknown) {
+      console.log(err);
+      if (axios.isAxiosError(err) && err.response) {
+        const data = err.response.data as ValidationErrorResponse;
+        const formatted: Record<string, string> = {};
+        Object.entries(data.errors).forEach(([field, detail]) => {
+          formatted[field] = detail.msg;
+        });
+
+        toast.error(Object.values(formatted).join(", "));
+      } else {
+        toast.error("Something went wrong");
+      }
+    } finally {
+      setLoading(false);
+    }
+  };
+
+  const hdlClear = () => {
+    setEmail("");
+    setPassword("");
+    setIsChecked(false);
+  };
+
   return (
-    <div className="flex gap-8 justify-between">
+    <div className="flex flex-col md:flex-row gap-8 justify-between">
       {/* register steps */}
       <div className="basis-1/2 rounded-[50px]">
         <div className="flex flex-col justify-center gap-2 mb-8 border-l-8 border-sky-300 pl-4 h-[110px]">
@@ -75,6 +140,8 @@ const Register = () => {
                   className="py-6 rounded-2xl focus:bg-sky-100"
                   id="email"
                   type="email"
+                  value={email}
+                  onChange={(e) => setEmail(e.target.value)}
                   placeholder="email@example.com"
                   required
                 />
@@ -89,6 +156,8 @@ const Register = () => {
                   <Input
                     className="py-6 rounded-2xl focus:bg-sky-100 w-full border"
                     id="password"
+                    value={password}
+                    onChange={(e) => setPassword(e.target.value)}
                     type={showPassword ? "text" : "password"}
                     placeholder="password"
                     required
@@ -104,7 +173,11 @@ const Register = () => {
               </div>
 
               <div className="flex items-center gap-3">
-                <Checkbox id="terms" />
+                <Checkbox
+                  id="terms"
+                  checked={isChecked}
+                  onCheckedChange={(checked) => setIsChecked(checked === true)}
+                />
                 <Label htmlFor="terms">
                   I agree to the Terms & Conditions and Privacy Policy
                 </Label>
@@ -120,7 +193,7 @@ const Register = () => {
                 </Link>{" "}
                 and{"  "}
                 <Link
-                  to="/terms"
+                  to="/privacy"
                   className="font-bold text-sky-600 text-xs hover:text-sky-500 hover:cursor-pointer"
                 >
                   Privacy Policy.{" "}
@@ -133,13 +206,18 @@ const Register = () => {
         <CardFooter className="flex-col gap-2 mt-8">
           <Button
             type="submit"
+            onClick={hdlRegister}
             className="w-full text-lg text-white bg-sky-500 font-serif rounded-2xl py-7 hover:cursor-pointer hover:bg-sky-700 duration-300"
           >
+            {loading && (
+              <div className="animate-spin rounded-full h-5 w-5 border-t-2 border-b-2 border-white mr-3"></div>
+            )}
             Register
           </Button>
           <Button
             variant="outline"
             className="w-full text-lg  font-serif rounded-2xl py-6 hover:cursor-pointer"
+            onClick={hdlClear}
           >
             Clear
           </Button>

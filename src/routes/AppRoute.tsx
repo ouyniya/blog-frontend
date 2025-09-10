@@ -10,6 +10,7 @@ import Terms from "@/pages/Terms";
 import { createBrowserRouter, RouterProvider } from "react-router-dom";
 import ProtectedRoute from "./ProtectedRoute";
 import NotFound from "@/pages/NotFound";
+import ErrorBoundary from "@/components/ErrorBoundary";
 
 const router = createBrowserRouter([
   {
@@ -44,6 +45,10 @@ const router = createBrowserRouter([
 ]);
 
 const AppRoute = () => {
-  return <RouterProvider router={router} />;
+  return (
+    <ErrorBoundary>
+      <RouterProvider router={router} />
+    </ErrorBoundary>
+  );
 };
 export default AppRoute;
