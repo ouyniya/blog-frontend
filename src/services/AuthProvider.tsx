@@ -2,7 +2,6 @@ import React, { useEffect, useState } from "react";
 import useAuthStore from "../stores/authStore";
 import { authService } from "../services/authService";
 import axios from "axios";
-// import { useLocation } from "react-router-dom";
 import LoadingSpinner from "@/components/LoadingSpinner";
 import { userService } from "./userService";
 import { toast } from "react-toastify";
@@ -16,7 +15,6 @@ interface ValidationErrorResponse {
 export const AuthProvider: React.FC<{ children: React.ReactNode }> = ({
   children,
 }) => {
-  // const location = useLocation();
   const { setAuth, clearAuth } = useAuthStore();
   const [loading, setLoading] = useState(true);
 
@@ -28,7 +26,7 @@ export const AuthProvider: React.FC<{ children: React.ReactNode }> = ({
         setAuth(null, accessToken);
 
         const profile = await userService.getCurrentUser();
-        const { username, email, role } = profile.data;
+        const { username, email, role } = profile.data.user;
         const userData = { username, email, role };
         setAuth(userData, accessToken);
 
@@ -46,7 +44,6 @@ export const AuthProvider: React.FC<{ children: React.ReactNode }> = ({
           formatted[field] = detail.msg;
         });
 
-        toast.error(Object.values(formatted).join(", "));
       } else {
         toast.error("Something went wrong");
       }
