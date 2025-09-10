@@ -1,3 +1,10 @@
+## Thank you
+
+- UI from [shadcn](https://ui.shadcn.com/docs/installation) [motion-primitives](https://motion-primitives.com/) [magicui](https://magicui.design/)
+- image from [unsplash](https://unsplash.com/s/photos/snowflake?license=free)
+- transform tools [transform](https://transform.tools/)
+- SVG Icons [svgrepo](https://www.svgrepo.com/)
+
 # React + TypeScript + Vite
 
 This template provides a minimal setup to get React working in Vite with HMR and some ESLint rules.

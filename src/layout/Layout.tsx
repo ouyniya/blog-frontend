@@ -12,7 +12,7 @@ const Layout = () => {
         }}
       >
       <NavBar />
-      <main className="max-w-6xl mx-auto w-full px-4 md:px-0">
+      <main className="max-w-6xl mx-auto w-full px-4">
         <Outlet />
       </main>
       <Footer />

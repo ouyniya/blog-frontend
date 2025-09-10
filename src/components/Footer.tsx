@@ -11,7 +11,7 @@ const Footer = () => {
         </div>
       </div>
       <div className="flex items-center h-full text-center">
-        <p>
+        <div>
           <span>© nysdev.com since 2025; All rights reserved by </span>
           <strong>Nysdev</strong>
           <br />
@@ -35,7 +35,7 @@ const Footer = () => {
               <span>Cookie Policy</span>
             </Link>
           </div>
-        </p>
+        </div>
       </div>
       <div className="flex justify-start items-end pr-[2%]">
         <div className="flex h-full justify-start pt-[5%]">
