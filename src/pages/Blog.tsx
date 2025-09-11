@@ -34,8 +34,12 @@ import { toast } from "react-toastify";
 import { Loader2, Snowflake } from "lucide-react";
 import HeartIcon from "@/components/svg/HeartIcon";
 import type { BlogType } from "@/Types/blog";
+import { CarouselSpacing } from "@/components/CarouselSpacing";
+import { Link, useNavigate } from "react-router-dom";
 
 const Blog = () => {
+  const navigate = useNavigate();
+
   const [loading, setLoading] = useState(false);
   const [page, setPage] = useState(1);
   const [totalPage, setTotalPage] = useState(1);
@@ -73,6 +77,10 @@ const Blog = () => {
     <div className="max-w-4xl mx-auto">
       <Topic topic="Blogs" desc="Discover stories, ideas, and tips" />
 
+      <div className="mb-32 pt-8">
+        <CarouselSpacing blogs={blogs} />
+      </div>
+
       <div className="flex flex-col gap-8">
         {loading ? (
           <div className="w-full min-h-[100px] mx-auto flex justify-center items-center">
@@ -103,12 +111,15 @@ const Blog = () => {
                   </TableCell>
                 </TableRow>
               ) : (
-                blogs.map((blog) => (
+                blogs?.map((blog) => (
                   <TableRow key={blog._id}>
                     <TableCell className="text-sky-300">
                       {<Snowflake size={16} />}
                     </TableCell>
-                    <TableCell className="font-medium">
+                    <TableCell
+                      className="font-medium hover:cursor-pointer hover:text-sky-500 duration-300"
+                      onClick={() => navigate(`/blogs/${blog.slug}`)}
+                    >
                       {blog.title.substring(0, 30) + "..."}
                     </TableCell>
                     <TableCell>{blog.author.username}</TableCell>
@@ -212,7 +223,7 @@ const Blog = () => {
         </Pagination>
       </div>
 
-            <div className="flex flex-col md:flex-row gap-4 mx-auto w-full pt-16">
+      <div className="flex flex-col md:flex-row gap-4 mx-auto w-full pt-16">
         {blogs.length <= 0
           ? ""
           : blogs.map((item, index) => {
@@ -235,12 +246,16 @@ const Blog = () => {
                     <CardTitle className="mb-4">
                       {item.title.substring(0, 25) + "..."}
                     </CardTitle>
+
                     <CardDescription>
                       {item.content.substring(0, 100) + "..."}
                     </CardDescription>
                   </CardContent>
                   <CardFooter className="space-x-4">
-                    <Button className="w-full bg-sky-600/80 hover:bg-sky-500 hover:cursor-pointer rounded-3xl py-6 font-serif text-lg text-sky-50 italic">
+                    <Button
+                      className="w-full bg-sky-600/80 hover:bg-sky-500 hover:cursor-pointer rounded-3xl py-6 font-serif text-lg text-sky-50 italic"
+                      onClick={() => navigate(`/blogs/${item.slug}`)}
+                    >
                       Read more
                     </Button>
                   </CardFooter>

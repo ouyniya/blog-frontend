@@ -1,4 +1,3 @@
-
 export interface ValidationErrorResponse {
   errors: {
     [key: string]: { msg: string };

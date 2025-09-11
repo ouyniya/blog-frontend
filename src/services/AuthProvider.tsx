@@ -30,7 +30,7 @@ export const AuthProvider: React.FC<{ children: React.ReactNode }> = ({
       }
     } catch (err: unknown) {
       clearAuth();
-      console.log(err);
+      console.log('Refresh token error: ', err);
 
       if (axios.isAxiosError(err) && err.response) {
         const data = err.response.data as ValidationErrorResponse;
