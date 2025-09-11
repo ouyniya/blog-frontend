@@ -13,6 +13,7 @@ import NotFound from "@/pages/NotFound";
 import ErrorBoundary from "@/components/ErrorBoundary";
 import { AuthProvider } from "@/services/AuthProvider";
 import CreateBlog from "@/pages/CreateBlog";
+import BlogDetail from "@/pages/BlogDetail";
 
 const router = createBrowserRouter([
   {
@@ -25,6 +26,7 @@ const router = createBrowserRouter([
     children: [
       { index: true, element: <Home /> },
       { path: "/blog", element: <Blog /> },
+      { path: "/blogs/:slug", element: <BlogDetail /> },
       { path: "/terms", element: <Terms /> },
       { path: "/privacy", element: <Privacy /> },
       { path: "/cookie", element: <Cookie /> },
