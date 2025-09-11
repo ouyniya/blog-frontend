@@ -9,12 +9,7 @@ import { authService } from "@/services/authService";
 import { toast } from "react-toastify";
 import axios from "axios";
 import useAuthStore from "@/stores/authStore";
-
-interface ValidationErrorResponse {
-  errors: {
-    [key: string]: { msg: string };
-  };
-}
+import type { ValidationErrorResponse } from "@/Types/blog";
 
 const Login = () => {
   const { setAuth } = useAuthStore();

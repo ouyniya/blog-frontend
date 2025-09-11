@@ -1,4 +1,4 @@
-import { PinIcon, Megaphone } from "lucide-react";
+import { PinIcon, Snowflake } from "lucide-react";
 import { Marquee } from "@/components/magicui/marquee";
 import { Link } from "react-router-dom";
 
@@ -21,17 +21,14 @@ const NavBar = () => {
         {/* Marquee */}
         <div className="flex gap-4 items-center basis-4/5 pr-[2%]">
           <div>
-            <Megaphone className="text-sky-600" />
+            <Snowflake className="text-sky-400" />
           </div>
           <Marquee
             pauseOnHover
             className="[--duration:35s] hover:cursor-default"
           >
             <p className="text-sky-600 text-sm">
-              Lorem ipsum dolor sit amet consectetur adipisicing elit. Rem
-              veritatis illum accusamus necessitatibus, voluptatum nisi
-              assumenda consectetur cum nobis pariatur neque ab aperiam quas?
-              Impedit aspernatur nulla eum corporis aperiam.
+              When heavy snow falls, roads close, plans pause, and life slows. At first, it feels inconvenient, but soon, we realize it’s a gift. Snow encourages us to rest, spend time with loved ones, and embrace stillness—a rare luxury in busy lives.
             </p>
           </Marquee>
         </div>

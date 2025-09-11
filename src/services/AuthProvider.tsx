@@ -5,12 +5,7 @@ import axios from "axios";
 import LoadingSpinner from "@/components/LoadingSpinner";
 import { userService } from "./userService";
 import { toast } from "react-toastify";
-
-interface ValidationErrorResponse {
-  errors: {
-    [key: string]: { msg: string };
-  };
-}
+import type { ValidationErrorResponse } from "@/Types/blog";
 
 export const AuthProvider: React.FC<{ children: React.ReactNode }> = ({
   children,

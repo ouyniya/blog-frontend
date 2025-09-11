@@ -4,6 +4,7 @@
 - image from [unsplash](https://unsplash.com/s/photos/snowflake?license=free)
 - transform tools [transform](https://transform.tools/)
 - SVG Icons [svgrepo](https://www.svgrepo.com/)
+- Animate Icons [animateicons](https://animateicons.vercel.app/)
 
 # React + TypeScript + Vite
 

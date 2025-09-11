@@ -16,12 +16,7 @@ import { Eye, EyeOff } from "lucide-react";
 import { authService } from "@/services/authService";
 import { toast } from "react-toastify";
 import axios from "axios";
-
-interface ValidationErrorResponse {
-  errors: {
-    [key: string]: { msg: string };
-  };
-}
+import type { ValidationErrorResponse } from "@/Types/blog";
 
 const Register = () => {
   const [showPassword, setShowPassword] = useState(false);
