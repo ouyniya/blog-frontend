@@ -1,17 +1,19 @@
 import LoadingSpinner from "@/components/LoadingSpinner";
 import HeartIcon from "@/components/svg/HeartIcon";
 import Topic from "@/components/Topic";
+import { Button } from "@/components/ui/button";
 import { blogService } from "@/services/blogService";
 import type { BlogType } from "@/Types/blog";
 import { handleApiError } from "@/utils/errorHandler";
-import { Eye } from "lucide-react";
+import { AlertCircle, Eye } from "lucide-react";
 import { useEffect, useState } from "react";
-import { useParams } from "react-router-dom";
+import { Link, useParams } from "react-router-dom";
 import { toast } from "react-toastify";
 
 const BlogDetail = () => {
   const { slug } = useParams<{ slug: string }>();
   const [blog, setBlog] = useState<BlogType | null>(null);
+  const [loading, setLoading] = useState(false);
 
   useEffect(() => {
     const fetchBlog = async () => {
@@ -21,11 +23,14 @@ const BlogDetail = () => {
       }
 
       try {
-        // const res = await blogService.getBlogBySlug(slug);
-        // setBlog(res.data.blog);
-        setBlog(blogSample.blog);
+        setLoading(true);
+        const res = await blogService.getBlogBySlug(slug);
+        setBlog(res.data.blog);
+        // setBlog(blogSample.blog);
       } catch (error) {
         handleApiError(error);
+      } finally {
+        setLoading(false);
       }
     };
 
@@ -34,7 +39,22 @@ const BlogDetail = () => {
     }
   }, [slug]);
 
-  if (!blog) return <LoadingSpinner />;
+  if (loading) return <LoadingSpinner />;
+  if (!blog)
+    return (
+      <div className="w-full text-red-400 flex flex-col gap-8 items-center justify-center">
+        <div className="flex gap-2 items-center">
+          <AlertCircle size={18} />
+          <p>Blog not found</p>
+        </div>
+        <Link to='/blog'>
+        <Button className="rounded-full py-6 px-8 hover:cursor-pointer bg-sky-600 hover:bg-sky-500">
+          Go back
+        </Button>
+        </Link>
+        
+      </div>
+    );
 
   return (
     <div className="flex flex-col w-full max-w-5xl mx-auto">
@@ -70,7 +90,6 @@ const BlogDetail = () => {
 
       <div className="flex flex-col gap-8 pt-8 md:pt-24">
         <Topic topic="Comment" desc="Add comment here" />
-        
       </div>
     </div>
   );

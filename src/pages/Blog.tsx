@@ -54,15 +54,15 @@ const Blog = () => {
       try {
         setLoading(true);
 
-        // const allData = await blogService.getAllBlogs(perPage, offset);
-        // setTotalPage(Math.ceil(allData?.data?.total / perPage));
-        // setPage(Math.floor(offset / perPage) + 1);
-        // setTotal(allData?.data?.total);
-        // setBlogs(allData?.data?.blogs);
+        const allData = await blogService.getAllBlogs(perPage, offset);
+        setTotalPage(Math.ceil(allData?.data?.total / perPage));
+        setPage(Math.floor(offset / perPage) + 1);
+        setTotal(allData?.data?.total);
+        setBlogs(allData?.data?.blogs);
 
-        setPage(blogSample.total / perPage);
-        setTotal(blogSample.total);
-        setBlogs(blogSample.blogs);
+        // setPage(blogSample.total / perPage);
+        // setTotal(blogSample.total);
+        // setBlogs(blogSample.blogs);
       } catch (error) {
         handleApiError(error);
       } finally {
