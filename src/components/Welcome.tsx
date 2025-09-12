@@ -24,32 +24,31 @@ interface Item {
 
 let notifications = [
   {
-    name: "Payment received",
-    description: "Magic UI",
+    name: "System update completed",
+    description: "We’ve upgraded the blog platform for faster performance.",
     time: "15m ago",
-
-    icon: "💸",
+    icon: "⚡",
     color: "#00C9A7",
   },
   {
-    name: "User signed up",
-    description: "Magic UI",
+    name: "New feature released",
+    description: "You can now add cover images to your blog posts.",
     time: "10m ago",
-    icon: "👤",
+    icon: "🖼️",
     color: "#FFB800",
   },
   {
-    name: "New message",
-    description: "Magic UI",
+    name: "Community guidelines update",
+    description: "Please review the new posting rules for a safer space.",
     time: "5m ago",
-    icon: "💬",
+    icon: "📜",
     color: "#FF3D71",
   },
   {
-    name: "New event",
-    description: "Magic UI",
+    name: "Upcoming event",
+    description: "Join our live Q&A session this Friday at 6 PM.",
     time: "2m ago",
-    icon: "🗞️",
+    icon: "🎉",
     color: "#1E86FF",
   },
 ];
