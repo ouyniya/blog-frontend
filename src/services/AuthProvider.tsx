@@ -21,8 +21,8 @@ export const AuthProvider: React.FC<{ children: React.ReactNode }> = ({
         setAuth(null, accessToken);
 
         const profile = await userService.getCurrentUser();
-        const { username, email, role } = profile.data.user;
-        const userData = { username, email, role };
+        const { _id, username, email, role } = profile.data.user;
+        const userData = { _id, username, email, role };
         setAuth(userData, accessToken);
 
       } else {
