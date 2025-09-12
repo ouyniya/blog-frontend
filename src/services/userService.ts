@@ -10,8 +10,8 @@ export const userService = {
   getAllUsers: (limit: number, offset: number) =>
     axiosInstance.get(`/users/all?limit=${limit}&offset=${offset}`),
 
-  updateUserData: (body) =>
-    axiosInstance.put(`/users/current`, body),
+  // updateUserData: (body) =>
+  //   axiosInstance.put(`/users/current`, body),
 
   deleteCurrentUser: () =>
     axiosInstance.delete(`/users/current`),
