@@ -1,7 +1,7 @@
 import CommentForm from "@/components/CommentForm";
 import CommentItem from "@/components/CommentItem";
 import LoadingSpinner from "@/components/LoadingSpinner";
-import HeartIcon from "@/components/svg/HeartIcon";
+import InteractiveHeartIcon from "@/components/svg/InteractiveHeartIcon";
 import Topic from "@/components/Topic";
 import { Button } from "@/components/ui/button";
 import { blogService } from "@/services/blogService";
@@ -66,6 +66,12 @@ const BlogDetail = () => {
     fetchComments();
   };
 
+  const handleLikeUpdate = (newCount: number) => {
+    if (blog) {
+      setBlog({ ...blog, likesCount: newCount });
+    }
+  };
+
   useEffect(() => {
     if (blog) {
       fetchComments();
@@ -107,10 +113,12 @@ const BlogDetail = () => {
           </div>
           <div className="flex flex-col justify-end items-end w-full pr-8">
             <div className="flex gap-4 bg-sky-50 py-4 px-8 border border-sky-200/85 rounded-full">
-              <div className="flex gap-2 items-center">
-                <HeartIcon className="w-6" />
-                <p>{blog.likesCount}</p>
-              </div>
+              <InteractiveHeartIcon
+                blogId={blog._id}
+                initialLikesCount={blog.likesCount}
+                onLikeUpdate={handleLikeUpdate}
+                className="w-6"
+              />
               <div className="flex gap-2 items-center">
                 <Eye className="w-6 text-sky-500" />
                 <p>{blog.viewsCount}</p>
