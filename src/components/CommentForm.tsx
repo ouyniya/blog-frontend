@@ -72,7 +72,7 @@ const CommentForm = ({
           value={content}
           onChange={(e) => setContent(e.target.value)}
           placeholder="Write your comment here..."
-          className="min-h-[100px] resize-none"
+          className="min-h-[80px] resize-none rounded-3xl shadow-xs shadow-sky-500/25 border border-sky-300/50 bg-white"
         />
       </div>
       
@@ -83,7 +83,7 @@ const CommentForm = ({
             variant="outline"
             onClick={handleCancel}
             disabled={loading}
-            className="rounded-full"
+            className="rounded-full py-6 hover:cursor-pointer duration-300"
           >
             Cancel
           </Button>
@@ -91,9 +91,9 @@ const CommentForm = ({
         <Button
           type="submit"
           disabled={loading || !content.trim()}
-          className="rounded-full bg-sky-600 hover:bg-sky-700"
+          className="rounded-full bg-sky-600 hover:bg-sky-700 py-6 px-16 hover:cursor-pointer duration-300"
         >
-          <Send size={16} className="mr-2" />
+          <Send size={16} className="mr-1" />
           {loading ? "Saving..." : editCommentId ? "Update" : "Post"}
         </Button>
       </div>

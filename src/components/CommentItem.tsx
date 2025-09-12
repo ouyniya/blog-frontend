@@ -92,7 +92,7 @@ const CommentItem = ({ comment, onCommentUpdated }: CommentItemProps) => {
               variant="outline"
               size="sm"
               onClick={handleEditStart}
-              className="rounded-full"
+              className="rounded-full hover:cursor-pointer"
             >
               <Edit2 size={14} className="mr-1" />
               Edit
@@ -102,7 +102,7 @@ const CommentItem = ({ comment, onCommentUpdated }: CommentItemProps) => {
               size="sm"
               onClick={handleDelete}
               disabled={deleting}
-              className="rounded-full text-red-600 hover:text-red-700 hover:bg-red-50"
+              className="rounded-full text-red-600 hover:text-red-700 hover:bg-red-50 hover:cursor-pointer"
             >
               <Trash2 size={14} className="mr-1" />
               {deleting ? "Deleting..." : "Delete"}
